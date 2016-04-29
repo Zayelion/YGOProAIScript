@@ -94,27 +94,26 @@ To be used with ygopro percy 1.033.6v2 and up. For help on how to use this file 
 
 
 #Available functions:
-`AI.Chat(text)` --text: a string
-`AI.GetPlayerLP(player)` --1 = AI, 2 = the player
-`AI.GetCurrentPhase()` --Refer to /script/constant.lua for a list of valid phases
-
-`AI.GetOppMonsterZones()`
-`AI.GetAIMonsterZones()`
-`AI.GetOppSpellTrapZones()`
-`AI.GetAISpellTrapZones()`
-`AI.GetOppGraveyard()`
-`AI.GetAIGraveyard()`
-`AI.GetOppBanished()`
-`AI.GetAIBanished()`
-`AI.GetOppHand()`
-`AI.GetAIHand()`
-`AI.GetOppExtraDeck()`
-`AI.GetAIExtraDeck()`
-`AI.GetOppMainDeck()`
-`AI.GetAIMainDeck()`
-`AI.GetLastSummonedCards()` --The last card(s) that were successfully summoned on the field with event code EVENT_SUMMON_SUCCESS, EVENT_SPSUMMON_SUCCESS or EVENT_SPSUMMON_SUCCESS
-`AI.GetScriptFromCardObject(ai_card)` --convert ai card object to script card
-`AI.GetCardObjectFromScript(script_card)` --convert script card to ai card
+- `AI.Chat(text)` --text: a string
+- `AI.GetPlayerLP(player)` --1 = AI, 2 = the player
+- `AI.GetCurrentPhase()` --Refer to /script/constant.lua for a list of valid phases
+- `AI.GetOppMonsterZones()`
+- `AI.GetAIMonsterZones()`
+- `AI.GetOppSpellTrapZones()`
+- `AI.GetAISpellTrapZones()`
+- `AI.GetOppGraveyard()`
+- `AI.GetAIGraveyard()`
+- `AI.GetOppBanished()`
+- `AI.GetAIBanished()`
+- `AI.GetOppHand()`
+- `AI.GetAIHand()`
+- `AI.GetOppExtraDeck()`
+- `AI.GetAIExtraDeck()`
+- `AI.GetOppMainDeck()`
+- `AI.GetAIMainDeck()`
+- `AI.GetLastSummonedCards()` --The last card(s) that were successfully summoned on the field with event code EVENT_SUMMON_SUCCESS, EVENT_SPSUMMON_SUCCESS or EVENT_SPSUMMON_SUCCESS
+- `AI.GetScriptFromCardObject(ai_card)` --convert ai card object to script card
+- `AI.GetCardObjectFromScript(script_card)` --convert script card to ai card
 
 --Sample usage
 ````Lua
@@ -129,14 +128,14 @@ for i=1,#cards do
 	end
 end
 ````
---More sample usage
+More sample usage
 ````Lua
 local summonedCards = AI.GetLastSummonedCards()
 for i=1,#summonedCards do
 	print(i..": "..summonedCards[i].id)
 end
 ````
---Card conversion sample usage
+Card conversion sample usage
 
 ````
 local hand_cards = AI.GetAIHand()
@@ -160,34 +159,45 @@ Other todo's:
 math.randomseed( require("os").time() )
 ````
 
---- OnAIGoingFirstSecond ---
--- Called if AI can choose to go first or second.
--- This is only called if AI won the rock-paper-scissors.
--- Note: this function is called BEFORE OnStartOfDuel()
--- 
--- Parameters:
--- ai_deck_name = the selected AI deck name 
---
--- Return: 
--- 1 = yes, AI goes first
--- 0 = no, AI goes second
+##OnAIGoingFirstSecond ---
+Called if AI can choose to go first or second.
+
+This is only called if AI won the rock-paper-scissors.
+
+
+Note: this function is called BEFORE OnStartOfDuel()
+
+ 
+
+Parameters:
+
+`ai_deck_name` = the selected AI deck name 
+
+ Return: 
+ 1 = yes, AI goes first
+ 0 = no, AI goes second
+
+````
 function OnAIGoingFirstSecond(ai_deck_name)
 	-- Example implementation: AI wants to go first
 	return 1
 end
 
---- OnPlayerGoingFirstSecond ---
--- Called if the human player can choose to go first or second.
--- This is called if the player won the rock-paper-scissors.
--- Note: this function is called BEFORE OnStartOfDuel()
--- 
--- Parameters:
--- player_is_first
--- 1 = player goes first
--- 0 = player goes second
---
--- Return: 
--- (none)
+````
+- OnPlayerGoingFirstSecond ---
+Called if the human player can choose to go first or second.
+This is called if the player won the rock-paper-scissors.
+Note: this function is called BEFORE OnStartOfDuel()
+
+Parameters:
+player_is_first
+1 = player goes first
+0 = player goes second
+Return: 
+
+(none)
+
+````
 function OnPlayerGoingFirstSecond(player_is_first)
 	if player_is_first == 1 then
 		print("Player goes first")
@@ -197,16 +207,16 @@ function OnPlayerGoingFirstSecond(player_is_first)
 		print("Unknown value, error?")
 	end
 end
+````
 
---- OnStartOfDuel ---
--- Called at start of duel. 
--- You can put stuff like gl hf, taunts, copyright messages in here.
--- 
--- Parameters:
--- (none)
---
--- Return: 
--- (none)
+#OnStartOfDuel
+
+Called at start of duel. You can put stuff like gl hf, taunts, copyright messages in here.
+
+- Parameters: (none)
+- Return: (none)
+
+````
 function OnStartOfDuel()
 	AI.Chat("This AI script is for developer purpose only.")
 	AI.Chat("Please choose another script if you want to play against a more decent AI")
@@ -219,15 +229,17 @@ function OnStartOfDuel()
 	end
 end
 
---- OnSelectChainOrder() ---
---
--- Called when AI can select a chain order
--- 
--- Parameters:
--- cards = table of chain cards to select
---
--- Return: 
--- result = table containing card indices
+````
+#OnSelectChainOrder()
+
+ Called when AI can select a chain order
+
+ Parameters:
+ cards = table of chain cards to select
+
+- Return: result = table containing card indices
+
+````
 function OnSelectChainOrder(cards)
 	local result = {}
 	
@@ -242,6 +254,7 @@ function OnSelectChainOrder(cards)
 	end
 	return result
 end
+````
 
 --- OnSelectOption() ---
 --
